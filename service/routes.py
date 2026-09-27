@@ -78,7 +78,7 @@ def get_accounts(identificador):
     app.logger.info("Request to read an Account with id: %s", identificador)
     cuenta = Account.find(identificador)
     if not cuenta:
-        abort(status.HTTP_404_NOT_FOUND, f"Account with id [{identificador}] could not be found.")
+        abort(status.HTTP_404_NOT_FOUND, f"La cuenta [{identificador}] no se encuentra.")
     return cuenta.serialize(), status.HTTP_200_OK
 
 ######################################################################
@@ -86,7 +86,22 @@ def get_accounts(identificador):
 ######################################################################
 
 # ... place you code here to UPDATE an account ...
+@app.route("/accounts/<int:identificador>", methods=["PUT"])
+def update_accounts(identificador):
+    """
+    Actualiza los datos de una cuenta
+    Recibe el identificador de la cuenta a actualizar.
+    """
+    app.logger.info("Request to update an Account with id: %s", identificador)
 
+    cuenta = Account.find(identificador)
+    if not cuenta:
+        abort(status.HTTP_404_NOT_FOUND, f"La cuenta [{identificador}] no se encuentra.")
+
+    cuenta.deserialize(request.get_json())
+    cuenta.update()
+
+    return cuenta.serialize(), status.HTTP_200_OK
 
 ######################################################################
 # DELETE AN ACCOUNT

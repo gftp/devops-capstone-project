@@ -125,7 +125,7 @@ class TestAccountService(TestCase):
 
     # ADD YOUR TEST CASES HERE ...
 
-    # Función que prueba la función encargada de acceder y devolver los datos de una cuenta.
+    # Función que de probar el accesor y la devolución de los datos de una cuenta.
     def test_get_account(self):
         """It should Read a single Account"""
         cuenta = self._create_accounts(1)[0]
@@ -141,3 +141,19 @@ class TestAccountService(TestCase):
         """It should not Read an Account that is not found"""
         respuesta = self.client.get(f"{BASE_URL}/0")
         self.assertEqual(respuesta.status_code, status.HTTP_404_NOT_FOUND)   
+
+    # Función encargada de probar la actualización de una cuenta.
+    def test_update_account(self):
+        """It should Update an existing Account"""
+        # create an Account to update
+        cuenta_de_prueba = AccountFactory()
+        respuesta = self.client.post(BASE_URL, json=cuenta_de_prueba.serialize())
+        self.assertEqual(respuesta.status_code, status.HTTP_201_CREATED)
+
+        # update the account
+        nueva_cuenta = respuesta.get_json()
+        nueva_cuenta["name"] = "Nombre ejemplo"
+        respuesta = self.client.put(f"{BASE_URL}/{nueva_cuenta['id']}", json=nueva_cuenta)
+        self.assertEqual(respuesta.status_code, status.HTTP_200_OK)
+        cuenta_actualizada = respuesta.get_json()
+        self.assertEqual(cuenta_actualizada["name"], "Nombre ejemplo")        
