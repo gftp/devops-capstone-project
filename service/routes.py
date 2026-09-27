@@ -51,7 +51,7 @@ def create_accounts():
     account.create()
     message = account.serialize()
     # Uncomment once get_accounts has been implemented
-    # location_url = url_for("get_accounts", account_id=account.id, _external=True)
+    #location_url = url_for("get_accounts", account_id=account.id, _external=True)
     location_url = "/"  # Remove once get_accounts has been implemented
     return make_response(
         jsonify(message), status.HTTP_201_CREATED, {"Location": location_url}
@@ -108,6 +108,19 @@ def update_accounts(identificador):
 ######################################################################
 
 # ... place you code here to DELETE an account ...
+@app.route("/accounts/<int:identificador>", methods=["DELETE"])
+def delete_accounts(identificador):
+    """
+    Borra los datos de una cuenta.
+    Recibe el identificador de la cuenta aRecibe el identificador de la cuenta a borrar.
+    """
+    app.logger.info("Se va a proceder al borrado de la cuenta: %s", identificador)
+
+    cuenta = Account.find(identificador)
+    if cuenta:
+        cuenta.delete()
+
+    return "", status.HTTP_204_NO_CONTENT
 
 
 ######################################################################

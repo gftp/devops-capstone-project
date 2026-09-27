@@ -157,3 +157,17 @@ class TestAccountService(TestCase):
         self.assertEqual(respuesta.status_code, status.HTTP_200_OK)
         cuenta_actualizada = respuesta.get_json()
         self.assertEqual(cuenta_actualizada["name"], "Nombre ejemplo")        
+
+    # Función encargada de probar la no actualización de una cuenta inexistente.
+    def test_update_account_not_found(self):
+        """It should not Update an Account that doesn't exist"""
+        respuesta = self.client.get(f"{BASE_URL}/0")
+        self.assertEqual(respuesta.status_code, status.HTTP_404_NOT_FOUND) 
+
+    # Función encargada de probar el borrado de una cuenta.
+    def test_delete_account(self):
+        """It should Delete an Account"""
+        cuenta = self._create_accounts(1)[0]
+        respuesta = self.client.delete(f"{BASE_URL}/{cuenta.id}")
+        self.assertEqual(respuesta.status_code, status.HTTP_204_NO_CONTENT)         
+    
