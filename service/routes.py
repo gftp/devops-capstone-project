@@ -62,7 +62,19 @@ def create_accounts():
 ######################################################################
 
 # ... place you code here to LIST accounts ...
+@app.route("/accounts", methods=["GET"])
+def list_accounts():
+    """
+    Devuelve la lista de todas las cuentas.
+    No recibe nada.
+    """
+    app.logger.info("Request to list Accounts")
 
+    cuentas = Account.all()
+    lista_cuentas = [cuenta.serialize() for cuenta in cuentas]
+
+    app.logger.info("Devuelve [%s] cuentas", len(lista_cuentas))
+    return jsonify(lista_cuentas), status.HTTP_200_OK
 
 ######################################################################
 # READ AN ACCOUNT
@@ -112,7 +124,7 @@ def update_accounts(identificador):
 def delete_accounts(identificador):
     """
     Borra los datos de una cuenta.
-    Recibe el identificador de la cuenta aRecibe el identificador de la cuenta a borrar.
+    Recibe el identificador de la cuenta a borrar.
     """
     app.logger.info("Se va a proceder al borrado de la cuenta: %s", identificador)
 
