@@ -26,6 +26,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+# updated to v4 due to former versions been deprecated.        
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip wheel
