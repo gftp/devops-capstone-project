@@ -25,8 +25,8 @@ jobs:
           --health-retries 5
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-# updated to v4 due to former versions been deprecated.        
+        uses: actions/checkout@v5
+# updated to v5 due to former versions been deprecated.        
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip wheel
