@@ -26,8 +26,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-# I change 'actions/checkout@v2' to 'actions/checkout@v3' due to next GitHub messag :
-# "Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v3"     - name: Install dependencies
+     - name: Install dependencies
         run: |
           python -m pip install --upgrade pip wheel
           pip install -r requirements.txt
