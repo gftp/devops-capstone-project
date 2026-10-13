@@ -25,6 +25,7 @@ HTTPS_ENVIRON = {'wsgi.url_scheme': 'https'}
 ######################################################################
 #  T E S T   C A S E S
 ######################################################################
+
 class TestAccountService(TestCase):
     """Account Service Tests"""
 
@@ -132,7 +133,7 @@ class TestAccountService(TestCase):
     def test_get_account(self):
         """It should Read a single Account"""
         cuenta = self._create_accounts(1)[0]
-        respuesta = self.client.get (
+        respuesta = self.client.get(
             f"{BASE_URL}/{cuenta.id}", content_type="application/json"
         )
         self.assertEqual(respuesta.status_code, status.HTTP_200_OK)
@@ -143,8 +144,7 @@ class TestAccountService(TestCase):
     def test_get_account_not_found(self):
         """It should not Read an Account that is not found"""
         respuesta = self.client.get(f"{BASE_URL}/0")
-        self.assertEqual(respuesta.status_code, status.HTTP_404_NOT_FOUND)   
-
+        self.assertEqual(respuesta.status_code, status.HTTP_404_NOT_FOUND)
     # Función encargada de probar la actualización de una cuenta.
     def test_update_account(self):
         """It should Update an existing Account"""
@@ -152,28 +152,24 @@ class TestAccountService(TestCase):
         cuenta_de_prueba = AccountFactory()
         respuesta = self.client.post(BASE_URL, json=cuenta_de_prueba.serialize())
         self.assertEqual(respuesta.status_code, status.HTTP_201_CREATED)
-
         # update the account
         nueva_cuenta = respuesta.get_json()
         nueva_cuenta["name"] = "Nombre ejemplo"
         respuesta = self.client.put(f"{BASE_URL}/{nueva_cuenta['id']}", json=nueva_cuenta)
         self.assertEqual(respuesta.status_code, status.HTTP_200_OK)
         cuenta_actualizada = respuesta.get_json()
-        self.assertEqual(cuenta_actualizada["name"], "Nombre ejemplo")        
-
+        self.assertEqual(cuenta_actualizada["name"], "Nombre ejemplo")
     # Función encargada de probar la no actualización de una cuenta inexistente.
     def test_update_account_not_found(self):
         """It should not Update an Account that doesn't exist"""
         respuesta = self.client.get(f"{BASE_URL}/0")
-        self.assertEqual(respuesta.status_code, status.HTTP_404_NOT_FOUND) 
-
+        self.assertEqual(respuesta.status_code, status.HTTP_404_NOT_FOUND)
     # Función encargada de probar el borrado de una cuenta.
     def test_delete_account(self):
         """It should Delete an Account"""
         cuenta = self._create_accounts(1)[0]
         respuesta = self.client.delete(f"{BASE_URL}/{cuenta.id}")
-        self.assertEqual(respuesta.status_code, status.HTTP_204_NO_CONTENT)         
-    
+        self.assertEqual(respuesta.status_code, status.HTTP_204_NO_CONTENT)
     # Función encargada de probar el listado de todas las cuentas.
     def test_get_account_list(self):
         """It should Get a list of Accounts"""

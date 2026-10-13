@@ -51,7 +51,7 @@ def create_accounts():
     account.create()
     message = account.serialize()
     # Uncomment once get_accounts has been implemented
-    #location_url = url_for("get_accounts", account_id=account.id, _external=True)
+    # location_url = url_for("get_accounts", account_id=account.id, _external=True)
     location_url = "/"  # Remove once get_accounts has been implemented
     return make_response(
         jsonify(message), status.HTTP_201_CREATED, {"Location": location_url}
@@ -62,6 +62,7 @@ def create_accounts():
 ######################################################################
 
 # ... place you code here to LIST accounts ...
+
 @app.route("/accounts", methods=["GET"])
 def list_accounts():
     """
@@ -81,6 +82,7 @@ def list_accounts():
 ######################################################################
 
 # ... place you code here to READ an account ...
+
 @app.route("/accounts/<int:identificador>", methods=["GET"])
 def get_accounts(identificador):
     """
@@ -98,6 +100,7 @@ def get_accounts(identificador):
 ######################################################################
 
 # ... place you code here to UPDATE an account ...
+
 @app.route("/accounts/<int:identificador>", methods=["PUT"])
 def update_accounts(identificador):
     """
@@ -120,6 +123,7 @@ def update_accounts(identificador):
 ######################################################################
 
 # ... place you code here to DELETE an account ...
+
 @app.route("/accounts/<int:identificador>", methods=["DELETE"])
 def delete_accounts(identificador):
     """
