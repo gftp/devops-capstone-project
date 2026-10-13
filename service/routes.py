@@ -63,6 +63,7 @@ def create_accounts():
 
 # ... place you code here to LIST accounts ...
 
+
 @app.route("/accounts", methods=["GET"])
 def list_accounts():
     """
@@ -83,6 +84,7 @@ def list_accounts():
 
 # ... place you code here to READ an account ...
 
+
 @app.route("/accounts/<int:identificador>", methods=["GET"])
 def get_accounts(identificador):
     """
@@ -100,6 +102,7 @@ def get_accounts(identificador):
 ######################################################################
 
 # ... place you code here to UPDATE an account ...
+
 
 @app.route("/accounts/<int:identificador>", methods=["PUT"])
 def update_accounts(identificador):
@@ -123,6 +126,7 @@ def update_accounts(identificador):
 ######################################################################
 
 # ... place you code here to DELETE an account ...
+
 
 @app.route("/accounts/<int:identificador>", methods=["DELETE"])
 def delete_accounts(identificador):
