@@ -16,6 +16,7 @@ spec:
     - name: branch
       default: main
     - name: build-image
+    - name: DOCKERFILE
 
   tasks:
     - name: init
@@ -77,6 +78,8 @@ spec:
       params:
         - name: IMAGE
           value: "$(params.build-image)"
+        - name: DOCKERFILE
+          value: "$(params.DOCKERFILE)"
       runAfter:
         - tests
         - lint
