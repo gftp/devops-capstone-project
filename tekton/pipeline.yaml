@@ -77,6 +77,8 @@ spec:
       params:
         - name: IMAGE
           value: "$(params.build-image)"
+        - name: DOCKERFILE
+          value: "./Dockerfile"
       runAfter:
         - tests
         - lint
