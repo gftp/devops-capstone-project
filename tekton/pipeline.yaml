@@ -28,7 +28,7 @@ spec:
     - name: clone
       workspaces:
         - name: output
-          workspace: pipeline-workspace          
+          workspace: pipeline-workspace
       taskRef:
         name: git-clone
       params:
@@ -42,7 +42,7 @@ spec:
     - name: lint
       workspaces:
         - name: source
-          workspace: pipeline-workspace          
+          workspace: pipeline-workspace
       taskRef:
         name: flake8
       params:
@@ -56,7 +56,7 @@ spec:
     - name: tests
       workspaces:
         - name: source
-          workspace: pipeline-workspace          
+          workspace: pipeline-workspace
       taskRef:
         name: nose
       params:
@@ -70,12 +70,11 @@ spec:
     - name: build
       workspaces:
         - name: source
-          workspace: pipeline-workspace          
+          workspace: pipeline-workspace
       taskRef:
         name: buildah
         kind: ClusterTask
       params:
-
         - name: IMAGE
           value: "$(params.build-image)"
       runAfter:
@@ -85,7 +84,7 @@ spec:
 #    - name: deploy
 #      workspaces:
 #        - name: manifest-dir
-#          workspace: pipeline-workspace          
+#          workspace: pipeline-workspace
 #      taskRef:
 #        name: openshift-client
 #        kind: ClusterTask
